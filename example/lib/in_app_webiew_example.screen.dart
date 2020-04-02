@@ -53,13 +53,20 @@ class _InAppWebViewExampleScreenState extends State<InAppWebViewExampleScreen> {
                     initialHeaders: {},
                     initialOptions: InAppWebViewWidgetOptions(
                         inAppWebViewOptions: InAppWebViewOptions(
-                          debuggingEnabled: true,
+                          useShouldOverrideUrlLoading: true,
+                          // debuggingEnabled: true,
                         )
                     ),
                     onWebViewCreated: (InAppWebViewController controller) {
                       webView = controller;
                     },
+                    shouldOverrideUrlLoading: (InAppWebViewController controller, String url){
+                      print('shouldOverrideUrlLoading : $url');
+                      controller.loadUrl(url: url);
+
+                    },
                     onLoadStart: (InAppWebViewController controller, String url) {
+                      print('start load :$url');
                       setState(() {
                         this.url = url;
                       });
